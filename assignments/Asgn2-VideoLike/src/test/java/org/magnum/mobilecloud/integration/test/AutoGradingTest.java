@@ -9,6 +9,7 @@ import io.magnum.autograder.junit.Rubric;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.http.HttpStatus;
@@ -248,11 +249,12 @@ public class AutoGradingTest {
 
 		// Like the video
 		readWriteVideoSvcUser1.likeVideo(v.getId());
-
+		System.out.println(v.getLikes());
 		// Get the video again
 		v = readWriteVideoSvcUser1.getVideoById(v.getId());
 
 		// Make sure the like count is 1
+		System.out.println(v.getLikes());
 		assertTrue(v.getLikes() == 1);
 
 		try {
@@ -326,6 +328,11 @@ public class AutoGradingTest {
 		}
 
 		// Search for "The Cat"
+		List<Video> tmp = (List<Video>) readWriteVideoSvcUser1.getVideoList();
+		for(Video v : tmp) {
+			System.out.println("*********************" + v.getName());
+		}
+		
 		Collection<Video> searchResults = readWriteVideoSvcUser1.findByTitle(names[0]);
 		assertTrue(searchResults.size() > 0);
 
